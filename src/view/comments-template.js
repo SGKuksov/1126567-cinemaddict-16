@@ -1,4 +1,4 @@
-import { commentTemplate } from './сomment-template';
+import { commentTemplate } from './comment-template';
 import { emojiItemTemplate } from './emoji-item-template';
 
 const EMOJI_LIST = [
