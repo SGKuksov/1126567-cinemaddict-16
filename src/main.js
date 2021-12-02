@@ -19,12 +19,13 @@ renderTemplate([
       listTemplate([1, 2, 3], {
         title: 'All movies. Upcoming',
         extraClass: '',
+        hasShowMoreBtn: true,
       }),
-      listTemplate([1, 2, 3], {
+      listTemplate([1, 2], {
         title: 'Top rated',
         extraClass: 'films-list--extra',
       }),
-      listTemplate([1, 2, 3], {
+      listTemplate([1, 2], {
         title: 'Most commented',
         extraClass: 'films-list--extra',
       }),

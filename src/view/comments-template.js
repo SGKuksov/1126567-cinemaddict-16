@@ -15,7 +15,7 @@ export const commentsTemplate = (comments = []) => `
   </h3>
 
   <ul class="film-details__comments-list">
-    ${comments.map(() => commentTemplate())}
+    ${comments.map(() => commentTemplate()).join('')}
   </ul>
 
   <div class="film-details__new-comment">
@@ -26,7 +26,7 @@ export const commentsTemplate = (comments = []) => `
     </label>
 
     <div class="film-details__emoji-list">
-      ${EMOJI_LIST.map((item) => emojiItemTemplate(item))}
+      ${EMOJI_LIST.map((item) => emojiItemTemplate(item)).join('')}
     </div>
   </div>
 </section>
