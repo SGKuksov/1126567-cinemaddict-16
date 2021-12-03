@@ -18,8 +18,8 @@ export const prettifyNumbers = (value) => {
   }
 
   if (value < 10000) {
-    return `${value}&nbsp;₽`;
+    return value;
   } else {
-    return `${value.toLocaleString('ru-RU')}\xa0₽`;
+    return value.toLocaleString('ru-RU');
   }
 };
