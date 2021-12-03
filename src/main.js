@@ -9,9 +9,9 @@ import { filterTemplate } from './view/filter-template';
 import { catalogTemplate } from './view/catalog-template';
 import { listTemplate } from './view/list-template';
 import { detailTemplate } from './view/detail-template';
-import { informationTemplate } from "./view/information-template";
-import { controlsTemplate } from "./view/controls-template";
-import { commentsTemplate } from "./view/comments-template";
+import { informationTemplate } from './view/information-template';
+import { controlsTemplate } from './view/controls-template';
+import { commentsTemplate } from './view/comments-template';
 
 renderTemplate([
   headerTemplate({
