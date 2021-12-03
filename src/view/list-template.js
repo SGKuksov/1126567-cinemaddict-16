@@ -1,7 +1,7 @@
 import { cardTemplate } from './card-template';
 import { showMoreBtnTemplate } from './show-more-btn-template';
 
-export const listTemplate = (cards = [], { title, extraClass, hasShowMoreBtn }) => `
+export const listTemplate = ({ title, extraClass, hasShowMoreBtn, cards = [] }) => `
 <section class="films-list ${extraClass}">
   <h2 class="films-list__title visually-hidden">${title}</h2>
 

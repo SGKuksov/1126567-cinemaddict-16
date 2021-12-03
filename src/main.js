@@ -8,29 +8,50 @@ import { navigationTemplate } from './view/navigation-template';
 import { filterTemplate } from './view/filter-template';
 import { catalogTemplate } from './view/catalog-template';
 import { listTemplate } from './view/list-template';
+import { detailTemplate } from './view/detail-template';
+import { informationTemplate } from "./view/information-template";
+import { controlsTemplate } from "./view/controls-template";
+import { commentsTemplate } from "./view/comments-template";
 
 renderTemplate([
-  headerTemplate([userTemplate()]),
+  headerTemplate({
+    templates: [userTemplate()]
+  }),
 
-  mainTemplate([
-    navigationTemplate(),
-    filterTemplate(),
-    catalogTemplate([
-      listTemplate([1, 2, 3], {
-        title: 'All movies. Upcoming',
-        extraClass: '',
-        hasShowMoreBtn: true,
-      }),
-      listTemplate([1, 2], {
-        title: 'Top rated',
-        extraClass: 'films-list--extra',
-      }),
-      listTemplate([1, 2], {
-        title: 'Most commented',
-        extraClass: 'films-list--extra',
-      }),
-    ]),
-  ]),
+  mainTemplate({
+    templates: [
+      navigationTemplate(),
+      filterTemplate(),
 
-  footerTemplate([footerStatisticTemplate()]),
+      catalogTemplate({
+        templates: [
+          listTemplate({
+            title: 'All movies. Upcoming',
+            extraClass: '',
+            hasShowMoreBtn: true,
+            cards: [1, 2, 3]
+          }),
+          listTemplate({
+            title: 'Top rated',
+            extraClass: 'films-list--extra',
+            cards: [1, 2]
+          }),
+          listTemplate({
+            title: 'Most commented',
+            extraClass: 'films-list--extra',
+            cards: [1, 2]
+          }),
+        ]
+      }),
+    ]
+  }),
+
+  detailTemplate({
+    topTemplates: [informationTemplate(), controlsTemplate()],
+    bottomTemplates: [commentsTemplate({ comments: [1, 2, 3] })]
+  }),
+
+  footerTemplate({
+    templates: [footerStatisticTemplate()]
+  }),
 ], document.body, true);

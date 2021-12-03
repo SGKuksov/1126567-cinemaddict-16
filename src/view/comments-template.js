@@ -8,7 +8,7 @@ const EMOJI_LIST = [
   { id: 'emoji-angry', name: 'angry' },
 ];
 
-export const commentsTemplate = (comments = []) => `
+export const commentsTemplate = ({ comments = [] }) => `
 <section class="film-details__comments-wrap">
   <h3 class="film-details__comments-title">
     Comments <span class="film-details__comments-count">${comments.length}</span>
