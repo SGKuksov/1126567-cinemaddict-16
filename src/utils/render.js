@@ -17,10 +17,15 @@ const createRootElement = (templates = [], container) => {
   placeholder.remove();
 };
 
-export const renderTemplate = (templates = [], container = createElement(), isRoot = false) => {
+export const renderTemplate = (templates = [], container = createElement(), isRoot = false, addition = false) => {
   if (isRoot) {
     createRootElement(templates, container);
 
+    return;
+  }
+
+  if (addition) {
+    container.innerHTML += templates.join('');
     return;
   }
 
