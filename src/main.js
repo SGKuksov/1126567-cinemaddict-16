@@ -12,15 +12,30 @@ import { detailTemplate } from './view/detail-template';
 import { informationTemplate } from './view/information-template';
 import { controlsTemplate } from './view/controls-template';
 import { commentsTemplate } from './view/comments-template';
+import {
+  generateFilm,
+  generateCounters,
+  generateUser,
+  generateDetail,
+  getRandomInteger
+} from './mock';
+
+const FILM_COUNT = 20;
+const FILM_TOTAL_COUNT = getRandomInteger(100, 55555);
+
+const films = Array.from({ length: FILM_COUNT }, generateFilm);
+const counters = generateCounters();
+const user = generateUser();
+const detail = generateDetail();
 
 renderTemplate([
   headerTemplate({
-    templates: [userTemplate()]
+    templates: [userTemplate(user)]
   }),
 
   mainTemplate({
     templates: [
-      navigationTemplate(),
+      navigationTemplate(counters),
       filterTemplate(),
 
       catalogTemplate({
@@ -29,17 +44,17 @@ renderTemplate([
             title: 'All movies. Upcoming',
             extraClass: '',
             hasShowMoreBtn: true,
-            cards: [1, 2, 3]
+            cards: films.slice(0, 5)
           }),
           listTemplate({
             title: 'Top rated',
             extraClass: 'films-list--extra',
-            cards: [1, 2]
+            cards: films.slice(0, 2)
           }),
           listTemplate({
             title: 'Most commented',
             extraClass: 'films-list--extra',
-            cards: [1, 2]
+            cards: films.slice(0, 2)
           }),
         ]
       }),
@@ -47,11 +62,11 @@ renderTemplate([
   }),
 
   detailTemplate({
-    topTemplates: [informationTemplate(), controlsTemplate()],
-    bottomTemplates: [commentsTemplate({ comments: [1, 2, 3] })]
+    topTemplates: [informationTemplate(detail), controlsTemplate(detail)],
+    bottomTemplates: [commentsTemplate({ comments: detail.comments })]
   }),
 
   footerTemplate({
-    templates: [footerStatisticTemplate()]
+    templates: [footerStatisticTemplate(FILM_TOTAL_COUNT)]
   }),
 ], document.body, true);
