@@ -227,6 +227,7 @@ button {
 .profile__avatar {
   display: block;
   margin-left: 15px;
+  border-radius: 50%;
 }
 
 .main-navigation {

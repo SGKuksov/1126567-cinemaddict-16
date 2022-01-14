@@ -12,15 +12,33 @@ import { detailTemplate } from './view/detail-template';
 import { informationTemplate } from './view/information-template';
 import { controlsTemplate } from './view/controls-template';
 import { commentsTemplate } from './view/comments-template';
+import { cardTemplate } from './view/card-template';
+import {
+  generateFilm,
+  generateCounters,
+  generateUser,
+  generateDetail,
+  getRandomInteger
+} from './mock';
+
+const FILM_COUNT = 20;
+const FILM_COUNT_PER_STEP = 5;
+const FILM_EXTRA_COUNT_PER_STEP = 2;
+const FILM_TOTAL_COUNT = getRandomInteger(100, 55555);
+
+const films = Array.from({ length: FILM_COUNT }, generateFilm);
+const counters = generateCounters();
+const user = generateUser();
+const detail = generateDetail();
 
 renderTemplate([
   headerTemplate({
-    templates: [userTemplate()]
+    templates: [userTemplate(user)]
   }),
 
   mainTemplate({
     templates: [
-      navigationTemplate(),
+      navigationTemplate(counters),
       filterTemplate(),
 
       catalogTemplate({
@@ -29,17 +47,17 @@ renderTemplate([
             title: 'All movies. Upcoming',
             extraClass: '',
             hasShowMoreBtn: true,
-            cards: [1, 2, 3]
+            cards: films.slice(0, FILM_COUNT_PER_STEP)
           }),
           listTemplate({
             title: 'Top rated',
             extraClass: 'films-list--extra',
-            cards: [1, 2]
+            cards: films.slice(0, FILM_EXTRA_COUNT_PER_STEP)
           }),
           listTemplate({
             title: 'Most commented',
             extraClass: 'films-list--extra',
-            cards: [1, 2]
+            cards: films.slice(0, FILM_EXTRA_COUNT_PER_STEP)
           }),
         ]
       }),
@@ -47,11 +65,40 @@ renderTemplate([
   }),
 
   detailTemplate({
-    topTemplates: [informationTemplate(), controlsTemplate()],
-    bottomTemplates: [commentsTemplate({ comments: [1, 2, 3] })]
+    topTemplates: [informationTemplate(detail), controlsTemplate(detail)],
+    bottomTemplates: [commentsTemplate({ comments: detail.comments })]
   }),
 
   footerTemplate({
-    templates: [footerStatisticTemplate()]
+    templates: [footerStatisticTemplate(FILM_TOTAL_COUNT)]
   }),
 ], document.body, true);
+
+const catalogList = Array.from(document.querySelectorAll('[data-catalog]'));
+catalogList.forEach((catalog) => {
+  let renderedTaskCount = FILM_COUNT_PER_STEP;
+
+  if (renderedTaskCount >= films.length) {
+    const showMoreBtn = catalog.querySelector('[data-btn="show-more"]');
+    showMoreBtn.remove();
+  }
+
+  catalog.addEventListener('click', (e) => {
+    const { target } = e;
+
+    const showMoreBtn = target.closest('[data-btn="show-more"]');
+    if (!showMoreBtn) {
+      return;
+    }
+
+    const filmsToRender = films.slice(renderedTaskCount, renderedTaskCount + FILM_COUNT_PER_STEP);
+    const container = catalog.querySelector('[data-container="films"]');
+    renderTemplate(filmsToRender.map((card) => cardTemplate(card)), container, false, true);
+
+    renderedTaskCount += FILM_COUNT_PER_STEP;
+
+    if (renderedTaskCount >= films.length) {
+      showMoreBtn.remove();
+    }
+  });
+});

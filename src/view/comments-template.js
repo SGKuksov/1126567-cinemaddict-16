@@ -15,7 +15,7 @@ export const commentsTemplate = ({ comments = [] }) => `
   </h3>
 
   <ul class="film-details__comments-list">
-    ${comments.map(() => commentTemplate()).join('')}
+    ${comments.map((comment) => commentTemplate(comment)).join('')}
   </ul>
 
   <div class="film-details__new-comment">

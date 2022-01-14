@@ -23,3 +23,18 @@ export const prettifyNumbers = (value) => {
     return value.toLocaleString('ru-RU');
   }
 };
+
+export const formatDuration = (duration) => {
+  if (!duration) {
+    return '0m';
+  }
+
+  const hours = Math.trunc(duration / 60);
+  const minutes = duration % 60;
+
+  if (!hours) {
+    return `${minutes}m`;
+  }
+
+  return `${hours}h ${minutes}m`;
+};
