@@ -1,18 +1,4 @@
 import { renderTemplate } from './utils/render';
-import { headerTemplate } from './view/header-template';
-import { mainTemplate } from './view/main-template';
-import { footerTemplate } from './view/footer-template';
-import { userTemplate } from './view/user-template';
-import { footerStatisticTemplate } from './view/footer-statistic-template';
-import { navigationTemplate } from './view/navigation-template';
-import { filterTemplate } from './view/filter-template';
-import { catalogTemplate } from './view/catalog-template';
-import { listTemplate } from './view/list-template';
-import { detailTemplate } from './view/detail-template';
-import { informationTemplate } from './view/information-template';
-import { controlsTemplate } from './view/controls-template';
-import { commentsTemplate } from './view/comments-template';
-import { cardTemplate } from './view/card-template';
 import {
   generateFilm,
   generateCounters,
@@ -20,6 +6,22 @@ import {
   generateDetail,
   getRandomInteger
 } from './mock';
+
+import CardView from './view/card-view';
+import CatalogView from './view/catalog-view';
+import CommentsView from './view/comments-view';
+import ControlsView from './view/controls-view';
+import DetailView from './view/detail-view';
+import FilterView from './view/filter-view';
+import FooterStatisticView from './view/footer-statistic-view';
+import FooterView from './view/footer-view';
+import HeaderView from './view/header-view';
+import InformationView from './view/information-view';
+import ListView from './view/list-view';
+import MainView from './view/main-view';
+import NavigationView from './view/navigation-view';
+import ShowMoreBtnView from './view/show-more-btn-view';
+import UserView from './view/user-view';
 
 const FILM_COUNT = 20;
 const FILM_COUNT_PER_STEP = 5;
@@ -32,46 +34,51 @@ const user = generateUser();
 const detail = generateDetail();
 
 renderTemplate([
-  headerTemplate({
-    templates: [userTemplate(user)]
-  }),
+  new HeaderView([
+    new UserView(user).template
+  ]).template,
 
-  mainTemplate({
-    templates: [
-      navigationTemplate(counters),
-      filterTemplate(),
+  new MainView([
+    new NavigationView(counters).template,
 
-      catalogTemplate({
-        templates: [
-          listTemplate({
-            title: 'All movies. Upcoming',
-            extraClass: '',
-            hasShowMoreBtn: true,
-            cards: films.slice(0, FILM_COUNT_PER_STEP)
-          }),
-          listTemplate({
-            title: 'Top rated',
-            extraClass: 'films-list--extra',
-            cards: films.slice(0, FILM_EXTRA_COUNT_PER_STEP)
-          }),
-          listTemplate({
-            title: 'Most commented',
-            extraClass: 'films-list--extra',
-            cards: films.slice(0, FILM_EXTRA_COUNT_PER_STEP)
-          }),
-        ]
-      }),
-    ]
-  }),
+    new FilterView().template,
 
-  detailTemplate({
-    topTemplates: [informationTemplate(detail), controlsTemplate(detail)],
-    bottomTemplates: [commentsTemplate({ comments: detail.comments })]
-  }),
+    new CatalogView([
+      new ListView(
+        {
+          title: 'All movies. Upcoming',
+          extraClass: '',
+        },
+        films.slice(0, FILM_COUNT_PER_STEP),
+        new ShowMoreBtnView().template,
+      ).template,
 
-  footerTemplate({
-    templates: [footerStatisticTemplate(FILM_TOTAL_COUNT)]
-  }),
+      new ListView(
+        {
+          title: 'Top rated',
+          extraClass: 'films-list--extra',
+        },
+        films.slice(0, FILM_EXTRA_COUNT_PER_STEP)
+      ).template,
+
+      new ListView(
+        {
+          title: 'Most commented',
+          extraClass: 'films-list--extra',
+        },
+        films.slice(0, FILM_EXTRA_COUNT_PER_STEP)
+      ).template,
+    ]).template,
+  ]).template,
+
+  new DetailView(
+    [new InformationView(detail).template, new ControlsView(detail).template],
+    [new CommentsView(detail.comments).template]
+  ).template,
+
+  new FooterView([
+    new FooterStatisticView(FILM_TOTAL_COUNT).template
+  ]).template,
 ], document.body, true);
 
 const catalogList = Array.from(document.querySelectorAll('[data-catalog]'));
@@ -93,7 +100,7 @@ catalogList.forEach((catalog) => {
 
     const filmsToRender = films.slice(renderedTaskCount, renderedTaskCount + FILM_COUNT_PER_STEP);
     const container = catalog.querySelector('[data-container="films"]');
-    renderTemplate(filmsToRender.map((card) => cardTemplate(card)), container, false, true);
+    renderTemplate(filmsToRender.map((card) => new CardView(card).template), container, false, true);
 
     renderedTaskCount += FILM_COUNT_PER_STEP;
 

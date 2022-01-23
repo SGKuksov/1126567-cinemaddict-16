@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { formatDuration } from '../utils/helpers';
-import AbstractView from "./abstract-view";
+import AbstractView from './abstract-view';
 
 const informationTemplate = (detail) => `
 <div class="film-details__info-wrap">
@@ -70,6 +70,10 @@ export default class InformationView extends AbstractView {
   }
 
   get template() {
+    if (!this.#detail) {
+      return '';
+    }
+
     return informationTemplate(this.#detail);
   }
 }

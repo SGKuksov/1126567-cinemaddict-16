@@ -1,4 +1,6 @@
-export const detailTemplate = ({ topTemplates = [], bottomTemplates = [] }) => `
+import AbstractView from './abstract-view';
+
+const detailTemplate = (topTemplates = [], bottomTemplates = []) => `
 <section class="film-details" style="display: none;">
   <form class="film-details__inner" action="" method="get">
     <div class="film-details__top-container">
@@ -15,3 +17,19 @@ export const detailTemplate = ({ topTemplates = [], bottomTemplates = [] }) => `
   </form>
 </section>
 `;
+
+export default class DetailView extends AbstractView {
+  #topTemplates = [];
+  #bottomTemplates = [];
+
+  constructor(topTemplates = [], bottomTemplates = []) {
+    super();
+
+    this.#topTemplates = topTemplates;
+    this.#bottomTemplates = bottomTemplates;
+  }
+
+  get template() {
+    return detailTemplate(this.#topTemplates, this.#bottomTemplates);
+  }
+}

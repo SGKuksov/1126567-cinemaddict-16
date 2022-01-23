@@ -1,4 +1,6 @@
-export const navigationTemplate = (counters) => `
+import AbstractView from './abstract-view';
+
+const navigationTemplate = (counters) => `
 <nav class="main-navigation">
   <div class="main-navigation__items">
     <a href="#all" class="main-navigation__item main-navigation__item--active">All movies</a>
@@ -10,3 +12,21 @@ export const navigationTemplate = (counters) => `
   <a href="#stats" class="main-navigation__additional">Stats</a>
 </nav>
 `;
+
+export default class NavigationView extends AbstractView {
+  #counters = null;
+
+  constructor(counters) {
+    super();
+
+    this.#counters = counters;
+  }
+
+  get template() {
+    if (!this.#counters) {
+      return '';
+    }
+
+    return navigationTemplate(this.#counters);
+  }
+}

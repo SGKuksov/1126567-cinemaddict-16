@@ -7,11 +7,13 @@ const controlsTemplate = (detail) => `
     class="film-details__control-button ${detail.isFavorites ? 'film-details__control-button--active' : ''} film-details__control-button--watchlist"
     id="watchlist"
     name="watchlist">Add to watchlist</button>
+
   <button
     type="button"
     class="film-details__control-button ${detail.isWatched ? 'film-details__control-button--active' : ''} film-details__control-button--watched"
     id="watched"
     name="watched">Already watched</button>
+
   <button
     type="button"
     class="film-details__control-button ${detail.hasInWatchList ? 'film-details__control-button--active' : ''} film-details__control-button--favorite"
@@ -20,8 +22,8 @@ const controlsTemplate = (detail) => `
 </section>
 `;
 
-export default class CommentsView extends AbstractView {
-  #detail = [];
+export default class ControlsView extends AbstractView {
+  #detail = null;
 
   constructor(detail) {
     super();

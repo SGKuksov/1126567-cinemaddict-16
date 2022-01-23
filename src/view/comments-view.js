@@ -1,4 +1,4 @@
-import { emojiItemTemplate } from './emoji-item-template';
+import EmojiItemView from './emoji-item-view';
 import AbstractView from './abstract-view';
 import CommentView from './comment-view';
 import { EMOJI_LIST } from '../constants';
@@ -10,7 +10,7 @@ const commentsTemplate = (comments = []) => `
   </h3>
 
   <ul class="film-details__comments-list">
-    ${comments.map((comment) => new CommentView(comment)).template.join('')}
+    ${comments.map((comment) => new CommentView(comment).template).join('')}
   </ul>
 
   <div class="film-details__new-comment">
@@ -21,26 +21,26 @@ const commentsTemplate = (comments = []) => `
     </label>
 
     <div class="film-details__emoji-list">
-      ${EMOJI_LIST.map((item) => emojiItemTemplate(item)).join('')}
+      ${EMOJI_LIST.map((item) => new EmojiItemView(item).template).join('')}
     </div>
   </div>
 </section>
 `;
 
 export default class CommentsView extends AbstractView {
-  #comment = null;
+  #comments = [];
 
-  constructor(comment) {
+  constructor(comments = []) {
     super();
 
-    this.#comment = comment;
+    this.#comments = comments;
   }
 
   get template() {
-    if (!this.#comment) {
+    if (!this.#comments) {
       return '';
     }
 
-    return commentsTemplate(this.#comment);
+    return commentsTemplate(this.#comments);
   }
 }

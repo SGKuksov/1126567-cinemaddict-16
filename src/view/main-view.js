@@ -1,6 +1,6 @@
 import AbstractView from './abstract-view';
 
-export const mainTemplate = (templates = []) => `
+const mainTemplate = (templates = []) => `
 <main class="main">
   ${templates.join('')}
 </main>

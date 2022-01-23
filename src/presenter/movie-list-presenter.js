@@ -1,6 +1,6 @@
 
 
-export default class BoardPresenter {
+export default class MovieListPresenter {
   #boardContainer = null;
   #boardComponent = new BoardView();
   #sortComponent = new SortView();

@@ -8,7 +8,7 @@ const filterTemplate = () => `
 </ul>
 `;
 
-export default class CommentsView extends AbstractView {
+export default class FilterView extends AbstractView {
   constructor() {
     super();
   }

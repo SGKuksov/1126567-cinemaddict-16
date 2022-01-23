@@ -7,7 +7,7 @@ const emojiItemTemplate = ({ id, name }) => `
 </label>
 `;
 
-export default class EmojeItemView extends AbstractView {
+export default class EmojiItemView extends AbstractView {
   #emojiItem = null;
 
   constructor(emojiItem) {

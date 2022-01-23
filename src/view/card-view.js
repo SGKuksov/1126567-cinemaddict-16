@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
+import {html} from 'lit-html';
 import { declensionOfNumbers, formatDuration, prettifyNumbers } from '../utils/helpers';
-import AbstractView from './abstract-view.js';
+import AbstractView from './abstract-view';
 
 const formatFilmDescription = (text, maxChars = 140) => {
   if (text.length > maxChars) {
@@ -10,15 +11,16 @@ const formatFilmDescription = (text, maxChars = 140) => {
   return text;
 };
 
-export const cardTemplate = (film) => {
+const cardTemplate = (film) => {
   const commentsCountTemplate = `
     <span class="film-card__comments">
       ${prettifyNumbers(film.commentsCounts)} ${declensionOfNumbers(film.commentsCounts, ['comment', 'comments', 'comments'])}
     </span>
   `;
+
   const filmDescription = formatFilmDescription(film.description);
 
-  return`
+  return html`
   <article class="film-card">
     <a class="film-card__link">
       <h3 class="film-card__title">${film.title}</h3>
