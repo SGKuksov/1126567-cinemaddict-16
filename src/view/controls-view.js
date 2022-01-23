@@ -1,6 +1,7 @@
+import { html, nothing } from 'lit-html';
 import AbstractView from './abstract-view';
 
-const controlsTemplate = (detail) => `
+const controlsTemplate = (detail) => html`
 <section class="film-details__controls">
   <button
     type="button"
@@ -33,7 +34,7 @@ export default class ControlsView extends AbstractView {
 
   get template() {
     if (!this.#detail) {
-      return '';
+      return nothing;
     }
 
     return controlsTemplate(this.#detail);

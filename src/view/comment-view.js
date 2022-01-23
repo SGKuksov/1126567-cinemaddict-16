@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
+import { html, nothing } from 'lit-html';
 import { EMOJIES } from '../constants';
 import AbstractView from './abstract-view';
 
-const commentTemplate = (comment) => `
+const commentTemplate = (comment) => html`
 <li class="film-details__comment">
   <span class="film-details__comment-emoji">
     <img src="${EMOJIES[comment.emoji].src}" width="55" height="55" alt="${EMOJIES[comment.emoji].alt}">
@@ -31,7 +32,7 @@ export default class CommentView extends AbstractView {
 
   get template() {
     if (!this.#comment) {
-      return '';
+      return nothing;
     }
 
     return commentTemplate(this.#comment);

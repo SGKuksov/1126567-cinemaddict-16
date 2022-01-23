@@ -1,6 +1,7 @@
+import { html } from 'lit-html';
 import AbstractView from './abstract-view';
 
-const detailTemplate = (topTemplates = [], bottomTemplates = []) => `
+const detailTemplate = (topTemplates = [], bottomTemplates = []) => html`
 <section class="film-details" style="display: none;">
   <form class="film-details__inner" action="" method="get">
     <div class="film-details__top-container">
@@ -8,11 +9,11 @@ const detailTemplate = (topTemplates = [], bottomTemplates = []) => `
         <button class="film-details__close-btn" type="button">close</button>
       </div>
 
-      ${topTemplates.join('')}
+      ${topTemplates}
     </div>
 
     <div class="film-details__bottom-container">
-      ${bottomTemplates.join('')}
+      ${bottomTemplates}
     </div>
   </form>
 </section>

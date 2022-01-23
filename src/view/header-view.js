@@ -1,10 +1,11 @@
+import { html } from 'lit-html';
 import AbstractView from './abstract-view';
 
-const headerTemplate = (templates = []) => `
+const headerTemplate = (templates = []) => html`
 <header class="header">
   <h1 class="header__logo logo">Cinemaddict</h1>
 
-  ${templates.join('')}
+  ${templates}
 </header>
 `;
 

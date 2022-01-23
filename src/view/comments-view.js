@@ -1,16 +1,17 @@
+import { html, nothing } from 'lit-html';
 import EmojiItemView from './emoji-item-view';
 import AbstractView from './abstract-view';
 import CommentView from './comment-view';
 import { EMOJI_LIST } from '../constants';
 
-const commentsTemplate = (comments = []) => `
+const commentsTemplate = (comments = []) => html`
 <section class="film-details__comments-wrap">
   <h3 class="film-details__comments-title">
     Comments <span class="film-details__comments-count">${comments.length}</span>
   </h3>
 
   <ul class="film-details__comments-list">
-    ${comments.map((comment) => new CommentView(comment).template).join('')}
+    ${comments.map((comment) => new CommentView(comment).template)}
   </ul>
 
   <div class="film-details__new-comment">
@@ -21,7 +22,7 @@ const commentsTemplate = (comments = []) => `
     </label>
 
     <div class="film-details__emoji-list">
-      ${EMOJI_LIST.map((item) => new EmojiItemView(item).template).join('')}
+      ${EMOJI_LIST.map((item) => new EmojiItemView(item).template)}
     </div>
   </div>
 </section>
@@ -38,7 +39,7 @@ export default class CommentsView extends AbstractView {
 
   get template() {
     if (!this.#comments) {
-      return '';
+      return nothing;
     }
 
     return commentsTemplate(this.#comments);

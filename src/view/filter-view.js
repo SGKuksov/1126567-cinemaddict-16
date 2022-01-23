@@ -1,6 +1,7 @@
+import { html } from 'lit-html';
 import AbstractView from './abstract-view';
 
-const filterTemplate = () => `
+const filterTemplate = () => html`
 <ul class="sort">
   <li><a href="#" class="sort__button sort__button--active">Sort by default</a></li>
   <li><a href="#" class="sort__button">Sort by date</a></li>

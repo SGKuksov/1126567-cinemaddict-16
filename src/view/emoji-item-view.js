@@ -1,6 +1,7 @@
+import { html, nothing } from 'lit-html';
 import AbstractView from './abstract-view';
 
-const emojiItemTemplate = ({ id, name }) => `
+const emojiItemTemplate = ({ id, name }) => html`
 <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="${id}" value="${name}">
 <label class="film-details__emoji-label" for="${id}">
   <img src="./images/emoji/${name}.png" width="30" height="30" alt="emoji">
@@ -18,7 +19,7 @@ export default class EmojiItemView extends AbstractView {
 
   get template() {
     if (!this.#emojiItem) {
-      return '';
+      return nothing;
     }
 
     return emojiItemTemplate(this.#emojiItem);

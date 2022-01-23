@@ -1,12 +1,13 @@
+import { html, nothing } from 'lit-html';
 import CardView from './card-view';
 import AbstractView from './abstract-view';
 
-const listTemplate = ({ title, extraClass }, cards = [], btn = '') => `
-<section class="films-list ${extraClass}" ${btn ? 'data-catalog' : ''}>
+const listTemplate = ({ title, extraClass }, cards = [], btn = '') => html`
+<section class="films-list ${extraClass}" data-catalog>
   <h2 class="films-list__title visually-hidden">${title}</h2>
 
   <div class="films-list__container" data-container="films">
-    ${cards.map((card) => new CardView(card).template).join('')}
+    ${cards.map((card) => new CardView(card).template)}
   </div>
 
   ${btn}
@@ -24,13 +25,11 @@ export default class ListView extends AbstractView {
     this.#options = options;
     this.#cards = cards;
     this.#btn = btn;
-
-    console.log(btn);
   }
 
   get template() {
     if (!this.#options) {
-      return '';
+      return nothing;
     }
 
     return listTemplate(this.#options, this.#cards, this.#btn);

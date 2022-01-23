@@ -1,8 +1,9 @@
+import { html } from 'lit-html';
 import AbstractView from './abstract-view';
 
-const catalogTemplate = (templates = []) => `
+const catalogTemplate = (templates = []) => html`
 <section class="films">
-  ${templates.join('')}
+  ${templates}
 </section>
 `;
 

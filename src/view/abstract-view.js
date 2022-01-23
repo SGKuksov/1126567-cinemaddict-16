@@ -1,12 +1,5 @@
 import { html, render } from 'lit-html';
 
-const test = html`<div>Hello my friends</div>`;
-const test1 = html`<div>Hello my friends</div>`;
-
-// const root1 = render([test1, test1, test1], document.body);
-// const root = render(test, document.body);
-// console.log(root.startNode.nextSibling);
-
 export default class AbstractView {
   #element = null;
   _callback = {};

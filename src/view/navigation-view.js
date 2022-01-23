@@ -1,6 +1,7 @@
+import { html, nothing } from 'lit-html';
 import AbstractView from './abstract-view';
 
-const navigationTemplate = (counters) => `
+const navigationTemplate = (counters) => html`
 <nav class="main-navigation">
   <div class="main-navigation__items">
     <a href="#all" class="main-navigation__item main-navigation__item--active">All movies</a>
@@ -24,7 +25,7 @@ export default class NavigationView extends AbstractView {
 
   get template() {
     if (!this.#counters) {
-      return '';
+      return nothing;
     }
 
     return navigationTemplate(this.#counters);

@@ -1,23 +1,22 @@
+import { html, nothing } from 'lit-html';
+import AbstractView from './abstract-view';
+
 // NOTE[@sgkuksov] Правила показа рейтинга
 // 0 — блок со званием не отображается;
 // от 1 до 10 — novice;
 // от 11 до 20 — fan;
 // от 21 и выше — movie buff.
-
-import AbstractView from './abstract-view';
-
 const ratingTemplate = (rating) => {
   if (!rating) {
-    return '';
+    return nothing;
   }
 
-  return `<p class="profile__rating">${rating}</p>`;
+  return html`<p class="profile__rating">${rating}</p>`;
 };
 
 // NOTE[@sgkuksov] Пример вывода аватара
 // images/bitmap@2x.png
-
-const userTemplate = (user) => `
+const userTemplate = (user) => html`
 <section class="header__profile profile">
   ${ratingTemplate(user.rating)}
 
@@ -36,9 +35,9 @@ export default class UserView extends AbstractView {
 
   get template() {
     if (!this.#user) {
-      return '';
+      return nothing;
     }
 
-    return userTemplate(this.#user);
+    return html`${userTemplate(this.#user)}`;
   }
 }

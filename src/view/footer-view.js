@@ -1,11 +1,12 @@
+import { html } from 'lit-html';
 import AbstractView from './abstract-view';
 
-const footerTemplate = (templates = []) => `
+const footerTemplate = (templates = []) => html`
 <footer class="footer">
   <section class="footer__logo logo logo--smaller">Cinemaddict</section>
 
   <section class="footer__statistics">
-    ${templates.join('')}
+    ${templates}
   </section>
 </footer>
 `;

@@ -1,8 +1,9 @@
 import AbstractView from './abstract-view';
+import { html } from 'lit-html';
 
-const mainTemplate = (templates = []) => `
+const mainTemplate = (templates = []) => html`
 <main class="main">
-  ${templates.join('')}
+  ${templates}
 </main>
 `;
 
