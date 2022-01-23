@@ -1,5 +1,4 @@
 import { render } from 'lit-html';
-import { renderTemplate } from './utils/render';
 import {
   generateFilm,
   generateCounters,
