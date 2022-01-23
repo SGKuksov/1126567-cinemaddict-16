@@ -1,13 +1,8 @@
 import dayjs from 'dayjs';
+import { EMOJIES } from '../constants';
+import AbstractView from './abstract-view';
 
-const EMOJIES = {
-  smile: {src: './images/emoji/smile.png', alt: 'emoji-smile'},
-  sleeping: {src: './images/emoji/sleeping.png', alt: 'emoji-sleeping'},
-  puke: {src: './images/emoji/puke.png', alt: 'emoji-puke'},
-  angry: {src: './images/emoji/angry.png', alt: 'emoji-angry'},
-};
-
-export const commentTemplate = (comment) => `
+const commentTemplate = (comment) => `
 <li class="film-details__comment">
   <span class="film-details__comment-emoji">
     <img src="${EMOJIES[comment.emoji].src}" width="55" height="55" alt="${EMOJIES[comment.emoji].alt}">
@@ -24,3 +19,21 @@ export const commentTemplate = (comment) => `
   </div>
 </li>
 `;
+
+export default class CommentView extends AbstractView {
+  #comment = null;
+
+  constructor(comment) {
+    super();
+
+    this.#comment = comment;
+  }
+
+  get template() {
+    if (!this.#comment) {
+      return '';
+    }
+
+    return commentTemplate(this.#comment);
+  }
+}

@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { declensionOfNumbers, formatDuration, prettifyNumbers } from '../utils/helpers';
+import AbstractView from './abstract-view.js';
 
 const formatFilmDescription = (text, maxChars = 140) => {
   if (text.length > maxChars) {
@@ -52,3 +53,21 @@ export const cardTemplate = (film) => {
   </article>
 `;
 };
+
+export default class CardView extends AbstractView {
+  #film = null;
+
+  constructor(film) {
+    super();
+
+    this.#film = film;
+  }
+
+  get template() {
+    if (!this.#film) {
+      return '';
+    }
+
+    return cardTemplate(this.#film);
+  }
+}

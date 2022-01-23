@@ -1,21 +1,16 @@
-import { commentTemplate } from './comment-template';
 import { emojiItemTemplate } from './emoji-item-template';
+import AbstractView from './abstract-view';
+import CommentView from './comment-view';
+import { EMOJI_LIST } from '../constants';
 
-const EMOJI_LIST = [
-  { id: 'emoji-smile', name: 'smile' },
-  { id: 'emoji-sleeping', name: 'sleeping' },
-  { id: 'emoji-puke', name: 'puke' },
-  { id: 'emoji-angry', name: 'angry' },
-];
-
-export const commentsTemplate = ({ comments = [] }) => `
+const commentsTemplate = (comments = []) => `
 <section class="film-details__comments-wrap">
   <h3 class="film-details__comments-title">
     Comments <span class="film-details__comments-count">${comments.length}</span>
   </h3>
 
   <ul class="film-details__comments-list">
-    ${comments.map((comment) => commentTemplate(comment)).join('')}
+    ${comments.map((comment) => new CommentView(comment)).template.join('')}
   </ul>
 
   <div class="film-details__new-comment">
@@ -31,3 +26,21 @@ export const commentsTemplate = ({ comments = [] }) => `
   </div>
 </section>
 `;
+
+export default class CommentsView extends AbstractView {
+  #comment = null;
+
+  constructor(comment) {
+    super();
+
+    this.#comment = comment;
+  }
+
+  get template() {
+    if (!this.#comment) {
+      return '';
+    }
+
+    return commentsTemplate(this.#comment);
+  }
+}

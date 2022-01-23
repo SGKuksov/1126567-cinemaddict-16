@@ -1,4 +1,6 @@
-export const controlsTemplate = (detail) => `
+import AbstractView from './abstract-view';
+
+const controlsTemplate = (detail) => `
 <section class="film-details__controls">
   <button
     type="button"
@@ -17,3 +19,21 @@ export const controlsTemplate = (detail) => `
     name="favorite">Add to favorites</button>
 </section>
 `;
+
+export default class CommentsView extends AbstractView {
+  #detail = [];
+
+  constructor(detail) {
+    super();
+
+    this.#detail = detail;
+  }
+
+  get template() {
+    if (!this.#detail) {
+      return '';
+    }
+
+    return controlsTemplate(this.#detail);
+  }
+}

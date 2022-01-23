@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
 import { formatDuration } from '../utils/helpers';
+import AbstractView from "./abstract-view";
 
-export const informationTemplate = (detail) => `
+const informationTemplate = (detail) => `
 <div class="film-details__info-wrap">
   <div class="film-details__poster">
     <img class="film-details__poster-img" src="${detail.cover}" alt="">
@@ -58,3 +59,17 @@ export const informationTemplate = (detail) => `
   </div>
 </div>
 `;
+
+export default class InformationView extends AbstractView {
+  #detail = [];
+
+  constructor(detail) {
+    super();
+
+    this.#detail = detail;
+  }
+
+  get template() {
+    return informationTemplate(this.#detail);
+  }
+}
